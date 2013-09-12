@@ -3,10 +3,9 @@ var AppRouter = Backbone.Router.extend({
     routes: {
         ""                  : "home",
         "videos"			: "list",
-        "videos/page/:page"	: "list",
+        // "videos/page/:page"	: "list",
         "videos/add"        : "addVideo",
-        "videos/:id"        : "videoDetails",
-        "about"             : "about"
+        "videos/:id"        : "videoDetails"
     },
 
     initialize: function () {
@@ -43,15 +42,8 @@ var AppRouter = Backbone.Router.extend({
         var video = new Video();
         $('#content').html(new VideoView({model: video}).el);
         this.headerView.selectMenuItem('add-menu');
-	},
-
-    about: function () {
-        if (!this.aboutView) {
-            this.aboutView = new AboutView();
-        }
-        $('#content').html(this.aboutView.el);
-        this.headerView.selectMenuItem('about-menu');
-    }
+        console.log("word")
+	}
 
 });
 
