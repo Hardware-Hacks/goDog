@@ -7,8 +7,6 @@ window.VideoListView = Backbone.View.extend({
     render: function () {
         var videos = this.model.models;
         var len = videos.length;
-        var startPos = (this.options.page - 1) * 8;
-        // var endPos = Math.min(startPos + 8, len);
 
         $(this.el).html('<ul class="thumbnails"></ul>');
 
