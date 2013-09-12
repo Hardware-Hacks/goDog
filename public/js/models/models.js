@@ -11,13 +11,10 @@ window.Video = Backbone.Model.extend({
             return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a name"};
         };
 
-        this.validators.grapes = function (value) {
-            return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a grape variety"};
+        this.validators.camera = function (value) {
+            return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a camera"};
         };
 
-        this.validators.country = function (value) {
-            return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a country"};
-        };
     },
 
     validateItem: function (key) {
@@ -44,10 +41,7 @@ window.Video = Backbone.Model.extend({
     defaults: {
         _id: null,
         name: "",
-        grapes: "",
-        country: "USA",
-        region: "California",
-        year: "",
+        camera: "",
         description: "",
         picture: null
     }
