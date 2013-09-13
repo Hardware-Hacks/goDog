@@ -1,5 +1,5 @@
 .brand {
-    font-family: 'Arvo';
+    font-family: 'Open Sans', Verdana, 'Helvetica Neue', Helvetica, Arial;
 }
 
 a.plain:link {
@@ -50,7 +50,7 @@ h5 {
 }
 
 .thumbnail {
-    min-width: 260px;
+    min-width: 350px;
 }
 
 .thumbnails li {
@@ -59,18 +59,18 @@ h5 {
 }
 
 legend {
-    font-family: 'Andika';
+    font-family: 'Open Sans', Verdana, 'Helvetica Neue', Helvetica, Arial;
 }
 
 .home-hero {
-    font-family: "Andika";
+    font-family: 'Open Sans', Verdana, 'Helvetica Neue', Helvetica, Arial;
     font-size: 36;
     color: white;
     background-image: url('img/bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    margin-top: -19px;
-    padding: 180px;
+    margin-top: -20px;
+    padding: 300px;
     text-align : center;
     text-shadow: 1px 1px 1px #000;
 }
@@ -89,17 +89,15 @@ legend {
 
 
 .home-hero .btn {
-    font-family: "arvo";
+    font-family: 'Open Sans', Verdana, 'Helvetica Neue', Helvetica, Arial;
     width: 160px;
     margin: 10px 4px;
 }
 
-.buttons {
-    padding-top: 10px;
-    text-align: center;
+.record_buttons {
+    margin: 10px auto;
+    width: 100%;
+    padding: 10px 0;
+    
 }
 
-.buttons .btn {
-    margin-right: 15px;
-    margin-left: 15px;
-}

@@ -25,7 +25,7 @@ var AppRouter = Backbone.Router.extend({
         var p = page ? parseInt(page, 10) : 1;
         var videoList = new VideoCollection();
         videoList.fetch({success: function(){
-            $("#content").html(new VideoListView({model: videoList, page: p}).el);
+            $("#content").html(new VideoListView({model: videoList}).el);
         }});
         this.headerView.selectMenuItem('home-menu');
     },

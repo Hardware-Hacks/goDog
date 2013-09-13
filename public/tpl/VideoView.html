@@ -11,13 +11,22 @@
                 <div class="span8">
 
                     <div class="control-group">
+                        <label for="isRecording" class="control-label">Recording now?</label>
+
+                        <div class="controls">
+                            <input type="checkbox" id="isRecording" name="isRecording" value="<%= isRecording === 'false' || !isRecording ? 'true' : 'false' %>" <%= isRecording === 'false' || !isRecording ? '' : 'checked' %> />
+                            <span class="help-inline"></span>
+                        </div>
+                    </div>
+
+<!--                     <div class="control-group">
                         <label for="videoId" class="control-label">Id</label>
 
                         <div class="controls">
                             <input id="videoId" name="id" type="text" value="<%= _id === null ? '' : _id %>"
                                    disabled/>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="control-group">
                         <label for="name" class="control-label">Name</label>
@@ -29,7 +38,7 @@
                     </div>
 
                     <div class="control-group">
-                        <label for="grapes" class="control-label">Camera URL</label>
+                        <label for="url" class="control-label">Camera URL</label>
 
                         <div class="controls">
                             <input type="text" id="camera" name="camera" value="<%= camera %>"/>

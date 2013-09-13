@@ -8,12 +8,12 @@ window.HeaderView = Backbone.View.extend({
         $(this.el).html(this.template());
         return this;
     },
-
     selectMenuItem: function (menuItem) {
         $('.nav li').removeClass('active');
-        if (menuItem) {
-            $('.' + menuItem).addClass('active');
-        }
+        // if (menuItem) {
+        //     $('.' + menuItem).addClass('active');
+        //     console.log($('.' + menuItem));
+        // }
     }
 
 });
