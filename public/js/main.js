@@ -21,8 +21,7 @@ var AppRouter = Backbone.Router.extend({
         this.headerView.selectMenuItem('home-menu');
     },
 
-	list: function(page) {
-        var p = page ? parseInt(page, 10) : 1;
+	list: function() {
         var videoList = new VideoCollection();
         videoList.fetch({success: function(){
             $("#content").html(new VideoListView({model: videoList}).el);

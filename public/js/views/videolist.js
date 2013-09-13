@@ -15,23 +15,7 @@ window.VideoListView = Backbone.View.extend({
         }        
 
         return this;
-    },
-
-   events: {
-        "click button": "recordYo"
-    },
-
-    recordYo: function(event){
-      $(event.currentTarget).toggle(
-            function() {
-                $(event.currentTarget).removeClass('btn-danger').addClass('btn-success');
-            },
-            function() {
-                $(event.currentTarget).removeClass('btn-success').addClass('btn-danger');
-            }
-        );
-        console.log(event.target);
-    }        
+    }      
 });
 
 window.VideoListItemView = Backbone.View.extend({
@@ -45,7 +29,26 @@ window.VideoListItemView = Backbone.View.extend({
 
     render: function () {
         $(this.el).html(this.template(this.model.toJSON()));
+
         return this;
+    },
+
+    events: {
+        "click button" : "recordYo",
+
+    },
+
+    recordYo: function () {
+        var isRecordingNow = this.model.get('isRecording')    
+        if (isRecordingNow === 'false') {
+            this.model.set('isRecording', 'true');
+        } else {
+            this.model.set('isRecording', 'false');       
+        }
+
+        this.model.save()
     }
+
+
 
 });
