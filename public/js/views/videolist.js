@@ -40,7 +40,7 @@ window.VideoListItemView = Backbone.View.extend({
 
     recordYo: function () {
         var isRecordingNow = this.model.get('isRecording')    
-        if (isRecordingNow === 'false') {
+        if (isRecordingNow === 'false' || !isRecordingNow ) {
             this.model.set('isRecording', 'true');
         } else {
             this.model.set('isRecording', 'false');       
