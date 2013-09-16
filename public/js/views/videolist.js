@@ -22,8 +22,6 @@ window.VideoListView = Backbone.View.extend({
 });
 
 window.VideoListItemView = Backbone.View.extend({
-
-    // globalVariable: "yo",
      
     keyCodeMap : {
         "a":65, "b":66, "c":67, "d":68, "e":69, "f":70, "g":71, "h":72, "i":73, "j":74, "k":75, "l":76,
@@ -33,10 +31,10 @@ window.VideoListItemView = Backbone.View.extend({
     tagName: "li",
 
     initialize: function () {
-        _.bindAll(this);
+        _.bindAll(this, 'keydown');
         this.model.bind("change", this.render, this);
         this.model.bind("destroy", this.close, this);  
-        $(document).on('keydown', this.keydown);        
+        $(document).on('keydown', this.keydown);
     },
 
     render: function () {
@@ -63,8 +61,6 @@ window.VideoListItemView = Backbone.View.extend({
         if (e.keyCode === this.keyCodeMap[this.model.get('alphabetLetter')]) {
            this.recordYo(); 
         }
-        // console.log(e.type, e.keyCode, e.which);
-        // console.log(this.keyCodeMap[this.model.get('alphabetLetter')]);
     }
 
 
