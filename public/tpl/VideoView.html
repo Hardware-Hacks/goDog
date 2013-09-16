@@ -9,6 +9,12 @@
 
             <div class="row">
                 <div class="span8">
+                    <div class="control-group">
+                        <a href="#videos/<%= _id %>" class="thumbnail plain" style="text-align: center;">
+                            <img src="<%= picture === null ? 'pics/generic.jpg' : 'pics/' + picture %>" height="150" width="125" alt="">
+                            <h5><%= name %></h5>
+                        </a>                    
+                    </div>
 
                     <div class="control-group">
                         <label for="isRecording" class="control-label">Recording now?</label>
@@ -42,6 +48,15 @@
 
                         <div class="controls">
                             <input type="text" id="camera" name="camera" value="<%= camera %>"/>
+                            <span class="help-inline"></span>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="url" class="control-label">Letter of Alphabet</label>
+
+                        <div class="controls">
+                            <input type="text" id="alphabetLetter" name="alphabetLetter" value="<%= alphabetLetter %>"/>
                             <span class="help-inline"></span>
                         </div>
                     </div>
