@@ -7,8 +7,6 @@ window.VideoListView = Backbone.View.extend({
     render: function () {
         var videos = this.model.models;
         var len = videos.length;
-        console.log(this.model);
-        // console.log(this.model.models);
 
         $(this.el).html('<ul class="thumbnails"></ul>');
 
