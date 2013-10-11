@@ -13,7 +13,7 @@ db.open(function(err, db) {
         db.collection('videos', {safe:true}, function(err, collection) {
             if (err) {
                 console.log("The 'videos' collection doesn't exist. Creating it with sample data...");
-                // populateDB();
+                populateDB();
             }
         });
     }
@@ -86,19 +86,19 @@ exports.deleteVideo = function(req, res) {
     });
 }
 
-/*--------------------------------------------------------------------------------------------------------------------*/
-// Populate database with sample data -- Only used once: the first time the application is started.
-// You'd typically not find this code in a real-life app, since the database would already exist.
-// var populateDB = function() {
+var populateDB = function() {
 
-//     var videos = [
-//     {
-//         name: "http://enteripurlhere",
-//         description: "The aromas of fruit and spice give one a hint of the light drinkability of this lovely video, which makes an excellent complement to fish dishes."
-//     }];
+    var videos = [
+    {
+        name: "Camera 1",
+        description: "Camera 1",
+        alphabetLetter: "a",
+        camera: "1",
+        isRecording: "false"
+    }];
 
-//     db.collection('videos', function(err, collection) {
-//         collection.insert(videos, {safe:true}, function(err, result) {});
-//     });
+    db.collection('videos', function(err, collection) {
+        collection.insert(videos, {safe:true}, function(err, result) {});
+    });
 
-// };
+};
