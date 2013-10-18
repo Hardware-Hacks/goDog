@@ -44,9 +44,22 @@ window.VideoListItemView = Backbone.View.extend({
     },
 
     events: {
-        "click button#recordYo" : "recordYo"
-        // 'click button#openEssay':'openEssay'
+        "click button#recordYo" : "recordYo",
+        "click button#power" : "turnOnYo"
     },
+
+    turnOnYo: function () {
+        var isOnNow = this.model.get('isOn');     
+
+        if (isOnNow === 'false' || !isOnNow ) {            
+            this.callPowerPi("powerOn");
+            this.model.set('isOn', 'true');
+        } else {
+            this.callPowerPi("powerOff");
+            this.model.set('isOn', 'false');       
+        }
+        this.model.save();
+    },    
 
     recordYo: function () {
         var isRecordingNow = this.model.get('isRecording');     
@@ -71,17 +84,40 @@ window.VideoListItemView = Backbone.View.extend({
     callRecordPi: function(a) {
         var http = new XMLHttpRequest();
         if (a === "record") {
-            http.open('GET', 'http://localhost:8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/PW/01', true);
+            var uri = 'http://localhost:8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/SH/01';
+            console.log(uri);
+            http.open('GET', uri, true);
         } else if (a == "stopRecord") {
-            http.open('GET', 'http://localhost:8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/PW/00', true);
+            var uri = 'http://localhost:8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/SH/00'
+            console.log(uri);
+            http.open('GET', uri, true);
         }
 
         console.log(a);
 
-        // http.onreadystatechange = function(evt) { console.log(evt); }
+        http.onreadystatechange = function(evt) { console.log(evt); }
         http.send();
 
-    }
+    },
+
+    callPowerPi: function(a) {
+        var http = new XMLHttpRequest();
+        if (a === "powerOn") {
+            var uri = 'http://localhost:8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/PW/01';
+            console.log(uri);
+            http.open('GET', uri, true);
+        } else if (a == "powerOff") {
+            var uri = 'http://localhost:8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/PW/00'
+            console.log(uri);
+            http.open('GET', uri, true);
+        }
+
+        console.log(a);
+
+        http.onreadystatechange = function(evt) { console.log(evt); }
+        http.send();
+
+    }    
 
 
 });

@@ -23,6 +23,15 @@
                         </a>                    
                     </div> -->
 
+                   <div class="control-group">
+                        <label for="isON" class="control-label">Power On?</label>
+
+                        <div class="controls">
+                            <input type="checkbox" id="isOn" name="isOn" value="<%= isOn === 'false' || !isOn ? 'true' : 'false' %>" <%= isOn === 'false' || !isOn ? '' : 'checked' %> />
+                            <span class="help-inline"></span>
+                        </div>
+                    </div>                    
+
                     <div class="control-group">
                         <label for="isRecording" class="control-label">Recording now?</label>
 
@@ -54,7 +63,7 @@
                         <label for="url" class="control-label">Camera IP</label>
 
                         <div class="controls">
-                            <input type="text" id="camera" name="camera" value="<%= camera %>"/>
+                            <input type="text" id="ip" name="ip" value="<%= ip %>"/>
                             <span class="help-inline"></span>
                         </div>
                     </div>

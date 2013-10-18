@@ -11,9 +11,9 @@ window.Video = Backbone.Model.extend({
             return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a name"};
         };
 
-        this.validators.camera = function (value) {
-            return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a camera"};
-        };
+        // this.validators.ip = function (value) {
+        //     return value.length > 0 ? {isValid: true} : {isValid: false, message: "You must enter a camera"};
+        // };
 
     },
 
@@ -42,11 +42,12 @@ window.Video = Backbone.Model.extend({
         _id: null,
         name: "",
         password: "",
-        camera: "",
+        ip: "",
         description: "",
         picture: null,
         isRecording: false,
-        alphabetLetter: ""
+        alphabetLetter: "",
+        isOn: false
     }
 });
 

@@ -93,9 +93,10 @@ var populateDB = function() {
         name: "Camera 1",
         description: "Camera 1",
         alphabetLetter: "a",
-        camera: "",
+        ip: "",
         password: "",
-        isRecording: "false"
+        isRecording: "false",
+        isOn:"false"
     }];
 
     db.collection('videos', function(err, collection) {

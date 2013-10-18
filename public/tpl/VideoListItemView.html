@@ -1,3 +1,9 @@
+<% if (isOn === 'false' || !isOn) { %>
+	<button class="btn btn-mini btn-medium" id="power"></i>Turn On</button>
+ <% } else { %>
+	<button class="btn btn-mini btn-success" id="power"></i>On</button>
+<% } %>
+
 <a href="#videos/<%= _id %>" class="thumbnail plain" style="text-align: center;">
     <img src="<%= picture === null ? 'pics/generic.jpg' : 'pics/' + picture %>" height="150" width="125" alt="">
     <h5><%= name %></h5>
@@ -9,6 +15,4 @@
  <% } else { %>
 	<button class="btn btn-danger btn-medium record_buttons" id="recordYo"><i class="icon-white icon-thumbs-up"></i> Recording...</button>
 <% } %>
-
-
 
