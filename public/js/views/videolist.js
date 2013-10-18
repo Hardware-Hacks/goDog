@@ -30,7 +30,7 @@ window.VideoListItemView = Backbone.View.extend({
     tagName: "li",
 
     initialize: function () {
-        _.bindAll(this, 'keydown', 'callPiAPI');
+        _.bindAll(this, 'keydown');
         this.model.bind("change", this.render, this);
         this.model.bind("destroy", this.close, this);  
         $(document).on('keydown', this.keydown);
@@ -44,16 +44,18 @@ window.VideoListItemView = Backbone.View.extend({
     },
 
     events: {
-        "click button" : "recordYo"
+        "click button#recordYo" : "recordYo"
+        // 'click button#openEssay':'openEssay'
     },
 
     recordYo: function () {
         var isRecordingNow = this.model.get('isRecording');     
 
         if (isRecordingNow === 'false' || !isRecordingNow ) {            
-            this.callPiAPI();
+            this.callRecordPi("record");
             this.model.set('isRecording', 'true');
         } else {
+            this.callRecordPi("stopRecord");
             this.model.set('isRecording', 'false');       
         }
         this.model.save();
@@ -66,11 +68,16 @@ window.VideoListItemView = Backbone.View.extend({
         }
     }, 
 
-    callPiAPI: function() {
-        console.log('ok cool man');
-        //get("http://localhost:8080/10.5.5.9/goprohero/PW/01");
+    callRecordPi: function(a) {
         var http = new XMLHttpRequest();
-        http.open('GET', 'http://localhost:8080/10.5.5.9/goprohero/PW/01', true);
+        if (a === "record") {
+            http.open('GET', 'http://localhost:8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/PW/01', true);
+        } else if (a == "stopRecord") {
+            http.open('GET', 'http://localhost:8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/PW/00', true);
+        }
+
+        console.log(a);
+
         // http.onreadystatechange = function(evt) { console.log(evt); }
         http.send();
 

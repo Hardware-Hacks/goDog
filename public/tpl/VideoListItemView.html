@@ -5,9 +5,9 @@
 </a>
 <% if (isRecording === 'false' || !isRecording) { %>
 <!-- # <button class="btn btn-medium record_buttons <%= isRecording === 'false' || !isRecording ? 'btn-success' : 'btn-danger' %>"><i class="icon-white icon-thumbs-down"></i> Record</button> -->
-	<button class="btn btn-inverse btn-medium record_buttons"></i>Start Recording</button>
+	<button class="btn btn-inverse btn-medium record_buttons" id="recordYo"></i>Start Recording</button>
  <% } else { %>
-	<button class="btn btn-danger btn-medium record_buttons"><i class="icon-white icon-thumbs-up"></i> Recording...</button>
+	<button class="btn btn-danger btn-medium record_buttons" id="recordYo"><i class="icon-white icon-thumbs-up"></i> Recording...</button>
 <% } %>
 
 
