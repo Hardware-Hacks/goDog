@@ -93,7 +93,8 @@ var populateDB = function() {
         name: "Camera 1",
         description: "Camera 1",
         alphabetLetter: "a",
-        camera: "1",
+        camera: "",
+        password: "",
         isRecording: "false"
     }];
 

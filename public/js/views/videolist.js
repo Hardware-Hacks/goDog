@@ -20,6 +20,7 @@ window.VideoListView = Backbone.View.extend({
 });
 
 window.VideoListItemView = Backbone.View.extend({
+
      
     keyCodeMap : {
         "a":65, "b":66, "c":67, "d":68, "e":69, "f":70, "g":71, "h":72, "i":73, "j":74, "k":75, "l":76,
@@ -29,10 +30,11 @@ window.VideoListItemView = Backbone.View.extend({
     tagName: "li",
 
     initialize: function () {
-        _.bindAll(this, 'keydown');
+        _.bindAll(this, 'keydown', 'callPiAPI');
         this.model.bind("change", this.render, this);
         this.model.bind("destroy", this.close, this);  
         $(document).on('keydown', this.keydown);
+
     },
 
     render: function () {
@@ -46,8 +48,10 @@ window.VideoListItemView = Backbone.View.extend({
     },
 
     recordYo: function () {
-        var isRecordingNow = this.model.get('isRecording')    
-        if (isRecordingNow === 'false' || !isRecordingNow ) {
+        var isRecordingNow = this.model.get('isRecording');     
+
+        if (isRecordingNow === 'false' || !isRecordingNow ) {            
+            this.callPiAPI();
             this.model.set('isRecording', 'true');
         } else {
             this.model.set('isRecording', 'false');       
@@ -57,8 +61,19 @@ window.VideoListItemView = Backbone.View.extend({
 
     keydown: function(e) {
         if (e.keyCode === this.keyCodeMap[this.model.get('alphabetLetter')]) {
+            console.log('keydown');
            this.recordYo(); 
         }
+    }, 
+
+    callPiAPI: function() {
+        console.log('ok cool man');
+        //get("http://localhost:8080/10.5.5.9/goprohero/PW/01");
+        var http = new XMLHttpRequest();
+        http.open('GET', 'http://localhost:8080/10.5.5.9/goprohero/PW/01', true);
+        // http.onreadystatechange = function(evt) { console.log(evt); }
+        http.send();
+
     }
 
 
