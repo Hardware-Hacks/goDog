@@ -95,7 +95,7 @@ window.VideoListItemView = Backbone.View.extend({
 
         console.log(a);
 
-        http.onreadystatechange = function(evt) { console.log(evt); }
+        http.onreadystatechange = function(evt) { console.log(http.status); }
         http.send();
 
     },
@@ -114,7 +114,7 @@ window.VideoListItemView = Backbone.View.extend({
 
         console.log(a);
 
-        http.onreadystatechange = function(evt) { console.log(evt); }
+        http.onreadystatechange = function(evt) { console.log(http.status); }
         http.send();
 
     }    
