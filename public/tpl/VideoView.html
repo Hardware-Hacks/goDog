@@ -60,16 +60,25 @@
                     </div>
 
                     <div class="control-group">
-                        <label for="url" class="control-label">Camera IP</label>
+                        <label for="piip" class="control-label">Raspberry Pi IP</label>
 
                         <div class="controls">
-                            <input type="text" id="ip" name="ip" value="<%= ip %>"/>
+                            <input type="text" id="piip" name="piip" value="<%= piip %>"/>
+                            <span class="help-inline"></span>
+                        </div>
+                    </div>                    
+
+                    <div class="control-group">
+                        <label for="cameraip" class="control-label">Camera IP</label>
+
+                        <div class="controls">
+                            <input type="text" id="cameraip" name="cameraip" value="<%= cameraip %>"/>
                             <span class="help-inline"></span>
                         </div>
                     </div>
 
                     <div class="control-group">
-                        <label for="url" class="control-label">Camera Password</label>
+                        <label for="password" class="control-label">Camera Password</label>
 
                         <div class="controls">
                             <input type="text" id="password" name="password" value="<%= password %>"/>
@@ -78,7 +87,7 @@
                     </div>                    
 
                     <div class="control-group">
-                        <label for="url" class="control-label">Letter of Alphabet</label>
+                        <label for="alphabetLetter" class="control-label">Letter of Alphabet</label>
 
                         <div class="controls">
                             <input type="text" id="alphabetLetter" name="alphabetLetter" value="<%= alphabetLetter %>"/>

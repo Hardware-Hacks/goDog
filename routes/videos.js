@@ -93,7 +93,8 @@ var populateDB = function() {
         name: "Camera 1",
         description: "Camera 1",
         alphabetLetter: "a",
-        ip: "",
+        piip: "",
+        cameraip: "10.5.5.9",
         password: "",
         isRecording: "false",
         isOn:"false"
