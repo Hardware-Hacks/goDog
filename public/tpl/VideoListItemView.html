@@ -5,8 +5,8 @@
 	<button class="btn btn-mini btn-success" id="power"></i>On</button>
 <% } %>  
 </div>
-<br/>
-<a href="#videos/<%= _id %>">edit video details</a>
+<span class="the_letter"><%= alphabetLetter %></span>
+<a class="edit_details" href="#videos/<%= _id %>"><%= name %> details</a>
 <br/>
 
 <!-- <a href="#videos/<%= _id %>" class="thumbnail plain" style="text-align: center;">
@@ -23,7 +23,6 @@
     <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' /> -->
     <source src="http://"+<%= piip %>+"8080/index.m3u8" type='application/vnd.apple.mpegurl'/>
 </video>
-
 <div id = "button_stuff">
   
     <% if (isRecording === 'false' || !isRecording) { %>
