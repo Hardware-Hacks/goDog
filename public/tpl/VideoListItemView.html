@@ -21,15 +21,16 @@
       data-setup="{"controls": true, "autoplay": false, "preload": "auto"}">
 <!--     <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
     <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' /> -->
-    <source src="http://"+<%= piip %>+"8080/index.m3u8" type='application/vnd.apple.mpegurl'/>
+    <source src="http://<%=piip %>:8080/index.m3u8" type='application/vnd.apple.mpegurl'/>
 </video>
 <div id = "button_stuff">
-  
+  <% if (isOn === 'true') { %>
     <% if (isRecording === 'false' || !isRecording) { %>
-  	   <button class="btn btn-medium record_buttons btn-inverse" id="recordYo">Start Recording</button>
-    <% } else { %>
-  	   <button class="btn btn-medium record_buttons btn-danger " id="recordYo"><i class="icon-white icon-thumbs-up"></i> Recording...</button>
-  
+    <!-- # <button class="btn btn-medium record_buttons <%= isRecording === 'false' || !isRecording ? 'btn-success' : 'btn-danger' %>"><i class="icon-white icon-thumbs-down"></i> Record</button> -->
+    <button class="btn btn-medium record_buttons btn-inverse" id="recordYo">Start Recording</button>
+   <% } else { %>
+    <button class="btn btn-medium record_buttons btn-danger " id="recordYo"><i class="icon-white icon-thumbs-up"></i> Recording...</button>
+  <% } %>
 <% } %>
 
 </div>

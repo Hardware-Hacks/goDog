@@ -35,7 +35,7 @@ window.VideoListItemView = Backbone.View.extend({
     initialize: function () {
         _.bindAll(this, 'keydown');
         // this.model.bind("change", this.render, this);
-        this.model.bind('change:isOn', this.render_power_button, this);
+        this.model.bind('change:isOn', this.render, this);
 
         this.model.bind('change:isRecording', this.render_record_button, this);
         this.model.bind("destroy", this.close, this);  
@@ -48,13 +48,6 @@ window.VideoListItemView = Backbone.View.extend({
 
         return this;
     },  
-
-    render_power_button: function() {            
-        $("#on_stuff").html(this.template2(this.model.toJSON()));
-        this.render_record_button();
-
-        return this;
-    },
 
     render_record_button: function() {            
         $("#button_stuff").html(this.template3(this.model.toJSON()));        
@@ -132,11 +125,11 @@ window.VideoListItemView = Backbone.View.extend({
     callPowerPi: function(a) {
         var http = new XMLHttpRequest();
         if (a === "powerOn") {
-            var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/PW/01';
+            var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/PW/01';
             console.log(uri);
             http.open('GET', uri, true);
         } else if (a == "powerOff") {
-            var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('ip') + '/' + this.model.get('password') + '/PW/00'
+            var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/PW/00'
             console.log(uri);
             http.open('GET', uri, true);
         }
