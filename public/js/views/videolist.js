@@ -19,6 +19,11 @@ window.VideoListView = Backbone.View.extend({
 
 });
 
+var commandsMap = { // GoPro command numbers
+    true: '01', // record
+    false: '00' // stop recording
+}
+
 window.VideoListItemView = Backbone.View.extend({
 
 
@@ -55,25 +60,24 @@ window.VideoListItemView = Backbone.View.extend({
 
 
     events: {
-        "click button#recordYo" : "recordYo",
-        "click button#power" : "turnOnYo"
+        "click button#recordYo" : "record",
+        "click button#power" : "power"
     },
 
-    turnOnYo: function () {
-        var isOnNow = this.model.get('isOn');
+    power: function() {
+        var http = new XMLHttpRequest();
+        var isOn = !this.model.get('isOn');
 
-        if (isOnNow === 'false' || !isOnNow ) {
-            this.callPowerPi("powerOn");
-            this.model.set('isOn', 'true');
-        } else {
-            this.callPowerPi("powerOff");
-            this.model.set('isOn', 'false');
-            this.model.set('isRecording', 'false');
-        }
+        this.model.set('isOn', isOn);
+        if (!isOn) this.model.set('isRecording', false); // Stop recording if we're powering off
         this.model.save();
+
+        var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/PW/' + commandsMap[isOn];
+        http.open('GET', uri, true);
+        http.send();
     },
 
-    recordYo: function () {
+    record: function() {
         var http = new XMLHttpRequest();
         var isOn = this.model.get('isOn');
         var isRecording = !this.model.get('isRecording'); // toggle local var for recording
@@ -82,14 +86,7 @@ window.VideoListItemView = Backbone.View.extend({
         this.model.save();
 
         if (isOn) {
-            var commandsMap = { // GoPro command numbers
-                true: '01', // record
-                false: '00' // stop recording
-            }
-
             var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/SH/' + commandsMap[isRecording]; // construct a GoPro API command based on whether we're now recording
-
-            console.log(uri);
 
             http.open('GET', uri, true);
             http.send();
@@ -99,30 +96,8 @@ window.VideoListItemView = Backbone.View.extend({
     keydown: function(e) {
         if ($('#power').length > 0) {
             if (e.keyCode === this.keyCodeMap[this.model.get('alphabetLetter')]) {
-                console.log('keydown');
-                this.recordYo();
+                this.record();
             }
         }
-    },
-
-    callPowerPi: function(a) {
-        var http = new XMLHttpRequest();
-        if (a === "powerOn") {
-            var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/PW/01';
-            console.log(uri);
-            http.open('GET', uri, true);
-        } else if (a == "powerOff") {
-            var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/PW/00'
-            console.log(uri);
-            http.open('GET', uri, true);
-        }
-
-        console.log(a);
-
-        http.onreadystatechange = function(evt) { console.log(http.status); }
-        http.send();
-
     }
-
-
 });
