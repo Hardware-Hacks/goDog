@@ -90,9 +90,11 @@ window.VideoListItemView = Backbone.View.extend({
     },
 
     keydown: function(e) {
-        if (e.keyCode === this.keyCodeMap[this.model.get('alphabetLetter')]) {
-            console.log('keydown');
-           this.recordYo(); 
+        if ($('#power').length > 0) {
+            if (e.keyCode === this.keyCodeMap[this.model.get('alphabetLetter')]) {
+                console.log('keydown');
+                this.recordYo(); 
+            }
         }
     }, 
 
