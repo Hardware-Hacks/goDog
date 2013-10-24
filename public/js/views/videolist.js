@@ -12,7 +12,7 @@ window.VideoListView = Backbone.View.extend({
 
         for (var i = 0; i < len; i++) {
             $('.thumbnails', this.el).append(new VideoListItemView({model: videos[i]}).render().el);
-        }        
+        }
 
         return this;
     },
@@ -23,7 +23,7 @@ window.VideoListItemView = Backbone.View.extend({
 
 
     template2: _.template('<button class="<%= (isOn === "false" || !isOn) ? "btn btn-mini btn-medium" : "btn btn-mini btn-success"  %>" id="power"><%= (isOn === "false"  || !isOn) ? "Turn On" : "On"  %></button>'),
-    template3: _.template('<button class="<%= (isRecording === "false" || !isRecording) ? "btn btn-medium record_buttons btn-inverse" : "btn btn-medium record_buttons btn-danger"  %>" id="recordYo"><%= (isRecording === "false"  || !isRecording) ? "Start Recording" : "<i class=\\"icon-white icon-thumbs-up\\"></i> Recording..."  %></button>'),     
+    template3: _.template('<button class="<%= (isRecording === "false" || !isRecording) ? "btn btn-medium record_buttons btn-inverse" : "btn btn-medium record_buttons btn-danger"  %>" id="recordYo"><%= (isRecording === "false"  || !isRecording) ? "Start Recording" : "<i class=\\"icon-white icon-thumbs-up\\"></i> Recording..."  %></button>'),
 
     keyCodeMap : {
         "a":65, "b":66, "c":67, "d":68, "e":69, "f":70, "g":71, "h":72, "i":73, "j":74, "k":75, "l":76,
@@ -32,12 +32,12 @@ window.VideoListItemView = Backbone.View.extend({
 
     tagName: "li",
 
-    initialize: function () {        
+    initialize: function () {
         _.bindAll(this, 'keydown');
         // this.model.bind("change", this.render, this);
         this.model.bind('change:isOn', this.render, this);
         this.model.bind('change:isRecording', this.render_record_button, this);
-        this.model.bind("destroy", this.close, this);  
+        this.model.bind("destroy", this.close, this);
         $(document).on('keydown', this.keydown);
 
     },
@@ -45,13 +45,13 @@ window.VideoListItemView = Backbone.View.extend({
     render: function () {
         $(this.el).html(this.template(this.model.toJSON()));
         return this;
-    },  
+    },
 
-    render_record_button: function() {            
-        
-        this.$el.find("#button_stuff").html(this.template3(this.model.toJSON()));        
+    render_record_button: function() {
+
+        this.$el.find("#button_stuff").html(this.template3(this.model.toJSON()));
         return this;
-    }, 
+    },
 
 
     events: {
@@ -60,9 +60,9 @@ window.VideoListItemView = Backbone.View.extend({
     },
 
     turnOnYo: function () {
-        var isOnNow = this.model.get('isOn');     
+        var isOnNow = this.model.get('isOn');
 
-        if (isOnNow === 'false' || !isOnNow ) {            
+        if (isOnNow === 'false' || !isOnNow ) {
             this.callPowerPi("powerOn");
             this.model.set('isOn', 'true');
         } else {
@@ -71,18 +71,18 @@ window.VideoListItemView = Backbone.View.extend({
             this.model.set('isRecording', 'false');
         }
         this.model.save();
-    },    
+    },
 
     recordYo: function () {
-        var isRecordingNow = this.model.get('isRecording');     
+        var isRecordingNow = this.model.get('isRecording');
 
-        if (isRecordingNow === 'false' || !isRecordingNow ) {            
+        if (isRecordingNow === 'false' || !isRecordingNow ) {
             this.callRecordPi("record");
             this.model.set('isRecording', 'true');
 
         } else {
             this.callRecordPi("stopRecord");
-            this.model.set('isRecording', 'false');       
+            this.model.set('isRecording', 'false');
         }
         this.model.save();
     },
@@ -91,10 +91,10 @@ window.VideoListItemView = Backbone.View.extend({
         if ($('#power').length > 0) {
             if (e.keyCode === this.keyCodeMap[this.model.get('alphabetLetter')]) {
                 console.log('keydown');
-                this.recordYo(); 
+                this.recordYo();
             }
         }
-    }, 
+    },
 
     callRecordPi: function(a) {
         var http = new XMLHttpRequest();
@@ -139,7 +139,7 @@ window.VideoListItemView = Backbone.View.extend({
         http.onreadystatechange = function(evt) { console.log(http.status); }
         http.send();
 
-    }    
+    }
 
 
 });
