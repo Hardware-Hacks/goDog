@@ -20,8 +20,8 @@ window.VideoListView = Backbone.View.extend({
 });
 
 var commandsMap = { // GoPro command numbers
-    true: '01', // record
-    false: '00' // stop recording
+    true: '01', // turn something on
+    false: '00' // turn something off
 }
 
 window.VideoListItemView = Backbone.View.extend({
