@@ -9,13 +9,6 @@
 <a class="edit_details" href="#videos/<%= _id %>"><%= name %> details</a>
 <br/>
 
-<!-- <a href="#videos/<%= _id %>" class="thumbnail plain" style="text-align: center;">
-    <img src="<%= picture === null ? 'pics/generic.jpg' : 'pics/' + picture %>" height="150" width="125" alt="">
-    <h5><%= name %></h5>
-    <h6><%= alphabetLetter %></h6>
-</a> -->
-
-<!-- <video src="http://10.5.5.9:8080/live/amba.m3u8"></video> -->
 <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="100%" height="100%"
       poster="pics/generic.jpg"
       data-setup="{"controls": true, "autoplay": false, "preload": "auto"}">
@@ -23,7 +16,7 @@
     <source src="http://video-js.zencoder.com/oceans-clip.webm" type='video/webm' /> -->
     <source src="http://<%=piip %>:8080/index.m3u8" type='application/vnd.apple.mpegurl'/>
 </video>
-<div id = "button_stuff">
+<div id = "button_stuff <%= alphabetLetter %>">
   <% if (isOn === 'true') { %>
     <% if (isRecording === 'false' || !isRecording) { %>
     <!-- # <button class="btn btn-medium record_buttons <%= isRecording === 'false' || !isRecording ? 'btn-success' : 'btn-danger' %>"><i class="icon-white icon-thumbs-down"></i> Record</button> -->
