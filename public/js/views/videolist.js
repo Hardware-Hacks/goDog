@@ -74,17 +74,26 @@ window.VideoListItemView = Backbone.View.extend({
     },
 
     recordYo: function () {
-        var isRecordingNow = this.model.get('isRecording');
+        var http = new XMLHttpRequest();
+        var isOn = this.model.get('isOn');
+        var isRecording = !this.model.get('isRecording'); // toggle local var for recording
 
-        if (isRecordingNow === 'false' || !isRecordingNow ) {
-            this.callRecordPi("record");
-            this.model.set('isRecording', 'true');
-
-        } else {
-            this.callRecordPi("stopRecord");
-            this.model.set('isRecording', 'false');
-        }
+        this.model.set('isRecording', isRecording); // toggle model var for recording using the local var's value
         this.model.save();
+
+        if (isOn) {
+            var commandsMap = { // GoPro command numbers
+                true: '01', // record
+                false: '00' // stop recording
+            }
+
+            var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/SH/' + commandsMap[isRecording]; // construct a GoPro API command based on whether we're now recording
+
+            console.log(uri);
+
+            http.open('GET', uri, true);
+            http.send();
+        }
     },
 
     keydown: function(e) {
@@ -94,32 +103,6 @@ window.VideoListItemView = Backbone.View.extend({
                 this.recordYo();
             }
         }
-    },
-
-    callRecordPi: function(a) {
-        var http = new XMLHttpRequest();
-        var isOn = this.model.get('isOn');
-
-        if (isOn === "true") {
-            if (a === "record") {
-                var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/SH/01';
-                console.log(uri);
-                console.log(isOn);
-                http.open('GET', uri, true);
-            } else if (a == "stopRecord") {
-                var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/SH/00'
-                console.log(uri);
-                http.open('GET', uri, true);
-            }
-        } else {
-            var uri = '#';
-        }
-
-        console.log(a);
-
-        http.onreadystatechange = function(evt) { console.log(http.status); }
-        http.send();
-
     },
 
     callPowerPi: function(a) {
