@@ -34,9 +34,9 @@ window.VideoListItemView = Backbone.View.extend({
 
     initialize: function () {        
         _.bindAll(this, 'keydown');
-        this.model.bind("change", this.render, this);
+        // this.model.bind("change", this.render, this);
         this.model.bind('change:isOn', this.render, this);
-        // this.model.bind('change:isRecording', this.render_record_button, this);
+        this.model.bind('change:isRecording', this.render_record_button, this);
         this.model.bind("destroy", this.close, this);  
         $(document).on('keydown', this.keydown);
 
@@ -48,7 +48,8 @@ window.VideoListItemView = Backbone.View.extend({
     },  
 
     render_record_button: function() {            
-        $("#button_stuff <%= alphabetLetter %>").html(this.template3(this.model.toJSON()));        
+        
+        this.$el.find("#button_stuff").html(this.template3(this.model.toJSON()));        
         return this;
     }, 
 
