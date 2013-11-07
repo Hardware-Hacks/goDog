@@ -96,8 +96,10 @@ var populateDB = function() {
         piip: "",
         cameraip: "10.5.5.9",
         password: "",
-        isRecording: "false",
-        isOn:"false"
+        isRecording: false,
+        isOn: false,
+        memoryLeft: 0,
+        batteryLeft: 0
     }];
 
     db.collection('videos', function(err, collection) {

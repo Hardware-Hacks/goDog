@@ -45,6 +45,22 @@ window.VideoListItemView = Backbone.View.extend({
         this.model.bind("destroy", this.close, this);
         $(document).on('keydown', this.keydown);
 
+        var dis = this;
+        $(function() {
+            // Get the status of the GoPro
+            $.ajax({
+                cache: false,
+                dataType: 'jsonp',
+                url: 'http://' + dis.model.get('piip') + ':8080/status?password=' + dis.model.get('password'),
+                success: function(json) {
+                    var status = JSON.parse(json);
+                    dis.model.set('isOn', status['power']);
+                    dis.model.set('isRecording', status['recording']);
+                    dis.model.set('memoryLeft', status['memoryLeft']);
+                    dis.model.set('batteryLeft', status['batteryLeft']);
+                }
+            })
+        });
     },
 
     render: function () {

@@ -48,7 +48,9 @@ window.Video = Backbone.Model.extend({
         picture: null,
         isRecording: false,
         alphabetLetter: "",
-        isOn: false
+        isOn: false,
+        memoryLeft: 0,
+        batteryLeft: 0
     }
 });
 
