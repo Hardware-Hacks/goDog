@@ -46,6 +46,7 @@ window.VideoListItemView = Backbone.View.extend({
 
     template2: _.template('<button class="<%= (isOn === "false" || !isOn) ? "btn btn-mini btn-medium" : "btn btn-mini btn-success"  %>" id="power"><%= (isOn === "false"  || !isOn) ? "Turn On" : "On"  %></button>'),
     template3: _.template('<button class="<%= (isRecording === "false" || !isRecording) ? "btn btn-medium record_buttons btn-inverse" : "btn btn-medium record_buttons btn-danger"  %>" id="recordYo"><%= (isRecording === "false"  || !isRecording) ? "Start Recording" : "<i class=\\"icon-white icon-thumbs-up\\"></i> Recording..."  %></button>'),
+    memoryLeftTemplate: _.template('<span class="memoryLeft">Memory left: <%= Math.round(memoryLeft / 10000000) / 100 %> GB</span>'),
 
     keyCodeMap : {
         "a":65, "b":66, "c":67, "d":68, "e":69, "f":70, "g":71, "h":72, "i":73, "j":74, "k":75, "l":76,
@@ -59,6 +60,7 @@ window.VideoListItemView = Backbone.View.extend({
         // this.model.bind("change", this.render, this);
         this.model.bind('change:isOn', this.render, this);
         this.model.bind('change:isRecording', this.render_record_button, this);
+        this.model.bind('change:memoryLeft', this.render_memoryLeft, this);
         this.model.bind("destroy", this.close, this);
         $(document).on('keydown', this.keydown);
 
@@ -82,6 +84,9 @@ window.VideoListItemView = Backbone.View.extend({
         return this;
     },
 
+    render_memoryLeft: function() {
+        this.$el.find(".memoryLeft").html(this.memoryLeftTemplate(this.model.toJSON()));
+    },
 
     events: {
         "click button#recordYo" : "record",
