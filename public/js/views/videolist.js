@@ -24,6 +24,23 @@ var commandsMap = { // GoPro command numbers
     false: '00' // turn something off
 }
 
+// Get the status of the GoPro
+var getStatus = function(dis) {
+    $.ajax({
+        cache: false,
+        dataType: 'jsonp',
+        url: 'http://' + dis.model.get('piip') + ':8080/status?password=' + dis.model.get('password'),
+        success: function(json) {
+            var status = JSON.parse(json);
+            dis.model.set('isOn', status['power']);
+            dis.model.set('isRecording', status['recording']);
+            dis.model.set('memoryLeft', status['memoryLeft']);
+            dis.model.set('batteryLeft', status['batteryLeft']);
+            dis.model.save();
+        }
+    })
+}
+
 window.VideoListItemView = Backbone.View.extend({
 
 
@@ -47,19 +64,10 @@ window.VideoListItemView = Backbone.View.extend({
 
         var dis = this;
         $(function() {
-            // Get the status of the GoPro
-            $.ajax({
-                cache: false,
-                dataType: 'jsonp',
-                url: 'http://' + dis.model.get('piip') + ':8080/status?password=' + dis.model.get('password'),
-                success: function(json) {
-                    var status = JSON.parse(json);
-                    dis.model.set('isOn', status['power']);
-                    dis.model.set('isRecording', status['recording']);
-                    dis.model.set('memoryLeft', status['memoryLeft']);
-                    dis.model.set('batteryLeft', status['batteryLeft']);
-                }
-            })
+            // poll the status every five seconds
+            setInterval(function() {
+                getStatus(dis);
+            }, 5000);
         });
     },
 
@@ -81,16 +89,22 @@ window.VideoListItemView = Backbone.View.extend({
     },
 
     power: function() {
-        var http = new XMLHttpRequest();
         var isOn = !this.model.get('isOn');
 
-        this.model.set('isOn', isOn);
-        if (!isOn) this.model.set('isRecording', false); // Stop recording if we're powering off
-        this.model.save();
-
-        var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/PW/' + commandsMap[isOn];
-        http.open('GET', uri, true);
-        http.send();
+        var dis = this;
+        $.ajax({
+            cache: false,
+            dataType: 'jsonp',
+            url: 'http://' + dis.model.get('piip') + ':8080/power/' + isOn.toString() + '?password=' + dis.model.get('password'),
+            success: function(json) {
+                var status = JSON.parse(json);
+                dis.model.set('isOn', status['power']);
+                dis.model.set('isRecording', status['recording']);
+                dis.model.set('memoryLeft', status['memoryLeft']);
+                dis.model.set('batteryLeft', status['batteryLeft']);
+                dis.model.save();
+            }
+        });
     },
 
     record: function() {
@@ -98,14 +112,22 @@ window.VideoListItemView = Backbone.View.extend({
         var isOn = this.model.get('isOn');
         var isRecording = !this.model.get('isRecording'); // toggle local var for recording
 
-        this.model.set('isRecording', isRecording); // toggle model var for recording using the local var's value
-        this.model.save();
+        var dis = this;
 
         if (isOn) {
-            var uri = 'http://' + this.model.get('piip') + ':8080/' + this.model.get('cameraip') + '/' + this.model.get('password') + '/SH/' + commandsMap[isRecording]; // construct a GoPro API command based on whether we're now recording
-
-            http.open('GET', uri, true);
-            http.send();
+            $.ajax({
+                cache: false,
+                dataType: 'jsonp',
+                url: 'http://' + dis.model.get('piip') + ':8080/record/' + isRecording.toString() + '?password=' + dis.model.get('password'),
+                success: function(json) {
+                    var status = JSON.parse(json);
+                    dis.model.set('isOn', status['power']);
+                    dis.model.set('isRecording', status['recording']);
+                    dis.model.set('memoryLeft', status['memoryLeft']);
+                    dis.model.set('batteryLeft', status['batteryLeft']);
+                    dis.model.save();
+                }
+            });
         }
     },
 
