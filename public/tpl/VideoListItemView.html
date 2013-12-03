@@ -1,7 +1,7 @@
 <div class="right">
     <p class="memoryLeft">Memory left: <%= Math.round(memoryLeft / 10000000) / 100 %> GB</p>
     <p>
-        <span class="batteryLeft">Battery: <%= batteryLeft %>%</span>
+        <span class="batteryLeft">Battery: <%= batteryLeft != null ? batteryLeft : 0 %>%</span>
         <span class="charging">
             <% if (charging) { %>
                 (charging)
