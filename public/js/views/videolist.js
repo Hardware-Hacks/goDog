@@ -48,7 +48,7 @@ window.VideoListItemView = Backbone.View.extend({
     template2: _.template('<button class="<%= (isOn === "false" || !isOn) ? "btn btn-mini btn-medium" : "btn btn-mini btn-success"  %>" id="power"><%= (isOn === "false"  || !isOn) ? "Turn On" : "On"  %></button>'),
     template3: _.template('<button class="<%= (isRecording === "false" || !isRecording) ? "btn btn-medium record_buttons btn-inverse" : "btn btn-medium record_buttons btn-danger"  %>" id="recordYo"><%= (isRecording === "false"  || !isRecording) ? "Start Recording" : "<i class=\\"icon-white icon-thumbs-up\\"></i> Recording..."  %></button>'),
     memoryLeftTemplate: _.template('<p class="memoryLeft">Memory left: <%= Math.round(memoryLeft / 10000000) / 100 %> GB</p>'),
-    batteryLeftTemplate: _.template('<span class="batteryLeft">Battery: <%= batteryLeft %>%</span>'),
+    batteryLeftTemplate: _.template('<span class="batteryLeft">Battery: <%= batteryLeft != null ? batteryLeft : 0 %>%</span>'),
     chargingTemplate: _.template('<span class="charging">\
         <% if (charging) { %>\
             (charging)\
@@ -101,7 +101,7 @@ window.VideoListItemView = Backbone.View.extend({
         this.$el.find(".batteryLeft").html(this.batteryLeftTemplate(this.model.toJSON()));
     },
 
-    render_batteryLeft: function() {
+    render_charging: function() {
         this.$el.find(".charging").html(this.chargingTemplate(this.model.toJSON()));
     },
 
