@@ -1,13 +1,23 @@
-<div id = "on_stuff">
-    <% if (isOn === 'false' || !isOn) { %>
-        <button class="btn btn-mini btn-medium" id="power"></i>Turn On</button>
-     <% } else { %>
-        <button class="btn btn-mini btn-success" id="power"></i>On</button>
-    <% } %>
-    <span class="memoryLeft">Memory left: <%= Math.round(memoryLeft / 10000000) / 100 %> GB</span>
+<div class="right">
+    <p class="memoryLeft">Memory left: <%= Math.round(memoryLeft / 10000000) / 100 %> GB</p>
+    <p>
+        <span class="batteryLeft">Battery: <%= batteryLeft %>%</span>
+        <span class="charging">
+            <% if (charging) { %>
+                (charging)
+            <% } %>
+        </span>
+    </p>
+    <a class="edit_details" href="#videos/<%= _id %>"><%= name %> details</a>
 </div>
-<span class="the_letter"><%= alphabetLetter %></span>
-<a class="edit_details" href="#videos/<%= _id %>"><%= name %> details</a>
+<p>
+    <% if (isOn === 'false' || !isOn) { %>
+    <button class="btn btn-mini btn-medium" id="power"></i>Turn On</button>
+<% } else { %>
+<button class="btn btn-mini btn-success" id="power"></i>On</button>
+    <% } %>
+</p>
+<p class="the_letter">Record: <%= alphabetLetter %></p>
 <br/>
 
 <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="100%" height="100%"

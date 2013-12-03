@@ -102,18 +102,14 @@ legend {
     margin: 10px auto;
     width: 100%;
     padding: 10px 0;
-    
+
 }
 
 .the_letter {
-    float: left;
     font-size: 1.3em;
-    position: relative;
-    top: -2px;
-    left: 5px;
 }
 
-.edit_details {
+.right {
+    text-align: right;
     float: right;
 }
-

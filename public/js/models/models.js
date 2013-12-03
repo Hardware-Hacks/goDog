@@ -50,7 +50,8 @@ window.Video = Backbone.Model.extend({
         alphabetLetter: "",
         isOn: false,
         memoryLeft: 0,
-        batteryLeft: 0
+        batteryLeft: 0,
+        charging: false
     }
 });
 

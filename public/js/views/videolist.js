@@ -35,7 +35,8 @@ var getStatus = function(dis) {
             dis.model.set('isOn', status['power']);
             dis.model.set('isRecording', status['recording']);
             dis.model.set('memoryLeft', status['memoryLeft']);
-            dis.model.set('batteryLeft', status['batteryLeft']);
+            dis.model.set('batteryLeft', status['batt1']);
+            dis.model.set('charging', status['charging']);
             dis.model.save();
         }
     })
@@ -46,7 +47,13 @@ window.VideoListItemView = Backbone.View.extend({
 
     template2: _.template('<button class="<%= (isOn === "false" || !isOn) ? "btn btn-mini btn-medium" : "btn btn-mini btn-success"  %>" id="power"><%= (isOn === "false"  || !isOn) ? "Turn On" : "On"  %></button>'),
     template3: _.template('<button class="<%= (isRecording === "false" || !isRecording) ? "btn btn-medium record_buttons btn-inverse" : "btn btn-medium record_buttons btn-danger"  %>" id="recordYo"><%= (isRecording === "false"  || !isRecording) ? "Start Recording" : "<i class=\\"icon-white icon-thumbs-up\\"></i> Recording..."  %></button>'),
-    memoryLeftTemplate: _.template('<span class="memoryLeft">Memory left: <%= Math.round(memoryLeft / 10000000) / 100 %> GB</span>'),
+    memoryLeftTemplate: _.template('<p class="memoryLeft">Memory left: <%= Math.round(memoryLeft / 10000000) / 100 %> GB</p>'),
+    batteryLeftTemplate: _.template('<span class="batteryLeft">Battery: <%= batteryLeft %>%</span>'),
+    chargingTemplate: _.template('<span class="charging">\
+        <% if (charging) { %>\
+            (charging)\
+        <% } %>\
+    </span>'),
 
     keyCodeMap : {
         "a":65, "b":66, "c":67, "d":68, "e":69, "f":70, "g":71, "h":72, "i":73, "j":74, "k":75, "l":76,
@@ -61,6 +68,8 @@ window.VideoListItemView = Backbone.View.extend({
         this.model.bind('change:isOn', this.render, this);
         this.model.bind('change:isRecording', this.render_record_button, this);
         this.model.bind('change:memoryLeft', this.render_memoryLeft, this);
+        this.model.bind('change:batteryLeft', this.render_batteryLeft, this);
+        this.model.bind('change:charging', this.render_charging, this);
         this.model.bind("destroy", this.close, this);
         $(document).on('keydown', this.keydown);
 
@@ -88,6 +97,14 @@ window.VideoListItemView = Backbone.View.extend({
         this.$el.find(".memoryLeft").html(this.memoryLeftTemplate(this.model.toJSON()));
     },
 
+    render_batteryLeft: function() {
+        this.$el.find(".batteryLeft").html(this.batteryLeftTemplate(this.model.toJSON()));
+    },
+
+    render_batteryLeft: function() {
+        this.$el.find(".charging").html(this.chargingTemplate(this.model.toJSON()));
+    },
+
     events: {
         "click button#recordYo" : "record",
         "click button#power" : "power"
@@ -106,7 +123,8 @@ window.VideoListItemView = Backbone.View.extend({
                 dis.model.set('isOn', status['power']);
                 dis.model.set('isRecording', status['recording']);
                 dis.model.set('memoryLeft', status['memoryLeft']);
-                dis.model.set('batteryLeft', status['batteryLeft']);
+                dis.model.set('batteryLeft', status['batt1']);
+                dis.model.set('charging', status['charging']);
                 dis.model.save();
             }
         });
@@ -129,7 +147,8 @@ window.VideoListItemView = Backbone.View.extend({
                     dis.model.set('isOn', status['power']);
                     dis.model.set('isRecording', status['recording']);
                     dis.model.set('memoryLeft', status['memoryLeft']);
-                    dis.model.set('batteryLeft', status['batteryLeft']);
+                    dis.model.set('batteryLeft', status['batt1']);
+                    dis.model.set('charging', status['charging']);
                     dis.model.save();
                 }
             });
