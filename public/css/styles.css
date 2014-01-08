@@ -56,6 +56,12 @@ h5 {
 .thumbnails li {
     margin-left: 0px !important;
     margin-right: 10px !important;
+    width: 372px;
+    height: 530px;
+}
+
+.thumbnails li video {
+    height: auto;
 }
 
 legend {
