@@ -12,8 +12,8 @@ goDog is a web interface for controlling a GoPro Hero 3+ via the [gdPi] API runn
 + Record
 + Preview (Safari on OS X only)
 
-# Setup
+## Setup
 
-First, set up [gdPi]. Then, clone this repository onto a laptop or desktop computer, install the dependncies with NPM, and start the server by running `node server.js`.
+First, set up [gdPi]. Then, clone this repository onto a laptop or desktop computer, install the dependncies with NPM, and start the server by running `node server.js`. Then you're good to go.
 
 [gdPi API]: https://github.com/FrontRush/gdPi
